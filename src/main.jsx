@@ -15,7 +15,10 @@ import About from './componensts/MainLayout/About.jsx';
 import History from './componensts/MainLayout/History.jsx';
 import Register from './componensts/Login_LogOut/Register.jsx';
 import AuthProvider from './componensts/AuthContext/AuthProvider.jsx';
-import Log from './componensts/Login_LogOut/Log.jsx';
+// import Log from './componensts/Login_LogOut/Log.jsx';
+import ShowMore from './componensts/MainLayout/Home/ShowMore.jsx';
+import PrivateRout from './componensts/ParivateRout/PrivateRout.jsx';
+import Book from './componensts/MainLayout/Home/Book.jsx';
 
 
 const router = createBrowserRouter([
@@ -24,7 +27,7 @@ const router = createBrowserRouter([
     element: <MainLayout />,
     children: [
       {
-        path: "Home",
+        path: "/",
         element: <Home />
       },
       {
@@ -34,7 +37,23 @@ const router = createBrowserRouter([
       {
         path: "History",
         element: <History />
+      },
+     {
+        path: "showMore",
+        element: <PrivateRout><ShowMore /></PrivateRout>
+      },
+      {
+        path: "book",
+        element: <PrivateRout><Book /></PrivateRout>
+      },
+      {
+        path: "history",
+        element: <PrivateRout><History /></PrivateRout>
       }
+      
+
+
+
     ]
   },
     {

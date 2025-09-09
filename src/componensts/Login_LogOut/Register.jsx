@@ -29,7 +29,7 @@ const Register = () => {
 
                 setMessage("Registered successfully!");
                 e.target.reset();
-                navigate('/Home');
+                navigate('/');
             })
             .catch((error) => {
                 setMessage("Error: " + error.message);

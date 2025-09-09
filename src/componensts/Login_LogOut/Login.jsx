@@ -17,7 +17,7 @@ const Login = () => {
             .then(() => {
                 setMessage('Login successful!');
                 e.target.reset();
-                navigate('/Home');
+                navigate('/');
             })
             .catch((error) => {
                 setMessage("Error: " + error.message);
@@ -28,7 +28,7 @@ const Login = () => {
         HandleGoogleSignIn()
             .then(() => {
                 setMessage('Google Sign-In successful!');
-                navigate('/Home');
+                navigate('/');
             })
             .catch((error) => {
                 setMessage("Error: " + error.message);

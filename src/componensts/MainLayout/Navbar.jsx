@@ -10,9 +10,10 @@ const Navbar = () => {
 
     const Links = (
         <>
-            <NavLink to='/Home'>𝙷𝚘𝚖𝚎</NavLink>
+            <NavLink to='/'>𝙷𝚘𝚖𝚎</NavLink>
             <NavLink to='/About'>𝙰𝚋𝚘𝚞𝚝</NavLink>
-            <NavLink to='/History'>History</NavLink>
+            <NavLink to='/services'>𝙾𝚞𝚛 𝚂𝚎𝚛𝚟𝚒𝚌𝚎𝚜</NavLink>
+             <NavLink to='/History'>𝙷𝚒𝚜𝚝𝚘𝚛𝚢</NavLink>
         </>
     );
 
@@ -34,7 +35,7 @@ const Navbar = () => {
     };
 
     return (
-        <div className="navbar bg-neutral text-neutral-content shadow-md">
+        <div className="navbar bg-neutral text-neutral-content shadow-md px-6">
             <div className="navbar-start">
                 <div className="dropdown">
                     <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -63,7 +64,7 @@ const Navbar = () => {
                 )}
 
                 {dropdownOpen && user && (
-                    <ul className="absolute right-0 mt-2 w-40 bg-white border rounded shadow-lg text-sm z-10">
+                    <ul className="absolute right-0 font-black mt-2 w-40 bg-white border rounded shadow-lg text-sm z-10">
                         <li>
                             <NavLink
                                 to="/ProfileSettings"
