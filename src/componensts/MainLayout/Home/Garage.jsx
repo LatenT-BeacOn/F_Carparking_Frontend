@@ -16,8 +16,8 @@ const Garage = ({ garage }) => {
       <div className="card-body flex flex-col justify-between">
         <div>
           <h2 className="card-title">{name}</h2>
-          <p className="text-gray-600">{location}</p>
-          <p className="font-bold">Price Per Hour:{price}</p>
+          <p className="text-red-500 font-bold text-xl">{location}</p>
+          <p className="font-bold">Price Per Hour:{price} BDT</p>
           <p className="flex gap-4 mt-2 text-sm font-semibold">
             <span>Total Slot: {totalSlot}</span>
             <span>Available: {available}</span>

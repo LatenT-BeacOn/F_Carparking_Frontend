@@ -19,6 +19,7 @@ import AuthProvider from './componensts/AuthContext/AuthProvider.jsx';
 import ShowMore from './componensts/MainLayout/Home/ShowMore.jsx';
 import PrivateRout from './componensts/ParivateRout/PrivateRout.jsx';
 import Book from './componensts/MainLayout/Home/Book.jsx';
+import Services from './componensts/MainLayout/Services.jsx';
 
 
 const router = createBrowserRouter([
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
       {
         path: "History",
         element: <History />
+      },
+      {
+        path: "services",
+        element: <Services/>
       },
      {
         path: "showMore",

@@ -2,6 +2,8 @@ import React, { useState, useContext } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { AuthContext } from '../../AuthContext/AuthProvider';
+import jsPDF from 'jspdf';
+
 
 const Book = () => {
   const location = useLocation();
@@ -71,37 +73,64 @@ const Book = () => {
       const data = await res.json();
 
       if (data.insertedId) {
+
+
+        //update available
+
+       // update available slots
+const updatedSlots = garage.available - slotsToBook;
+
+await fetch(`http://localhost:3000/store/${garage._id}`, {
+  method: 'PATCH',
+  headers: { 'content-type': 'application/json' },
+  body: JSON.stringify({ available: updatedSlots })
+});
+
+
+
+
+
+
+
+
+
         // Generate Ticket only if booking saved successfully
-        const ticket = `
-Parking Ticket
--------------------------
-Name: ${userName}
-Garage: ${garage.name}
-Location: ${garage.location}
-Slots: ${slotsToBook}
-Hours: ${hours}
-Price per Hour: ${garage.price || 'N/A'}
-Total Price: ${totalPrice}
--------------------------
-Thank you for booking!
-        `;
+       await fetch(`http://localhost:3000/store/${garage._id}`, {
+    method: 'PATCH',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({ available: updatedSlots })
+  });
 
-        const blob = new Blob([ticket], { type: 'text/plain' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `${garage.name}_Ticket.txt`;
-        a.click();
-        URL.revokeObjectURL(url);
+  // Generate PDF ticket
+  const doc = new jsPDF();
 
-        Swal.fire({
-          icon: 'success',
-          title: 'Booking Confirmed',
-          text: `You booked ${slotsToBook} slot(s) for ${hours} hour(s) at ${garage.name}.`,
-        });
+  doc.setFontSize(18);
+  doc.text("Parking Ticket", 105, 20, { align: "center" });
 
-        navigate('/History');
-      } else {
+  doc.setFontSize(12);
+  doc.text(`Name: ${userName}`, 20, 40);
+  doc.text(`Garage: ${garage.name}`, 20, 50);
+  doc.text(`Location: ${garage.location}`, 20, 60);
+  doc.text(`Slots: ${slotsToBook}`, 20, 70);
+  doc.text(`Hours: ${hours}`, 20, 80);
+  doc.text(`Price per Hour: ${garage.price || 'N/A'}`, 20, 90);
+  doc.text(`Total Price: ${totalPrice}`, 20, 100);
+
+  doc.setFontSize(10);
+  doc.text("Thank you for booking!", 105, 120, { align: "center" });
+
+  doc.save(`${garage.name}_Ticket.pdf`);
+
+  Swal.fire({
+    icon: 'success',
+    title: 'Booking Confirmed',
+    text: `You booked ${slotsToBook} slot(s) for ${hours} hour(s) at ${garage.name}.`,
+  });
+
+  navigate('/History');
+      } 
+      
+    else {
         Swal.fire({
           icon: 'error',
           title: 'Booking Failed',
