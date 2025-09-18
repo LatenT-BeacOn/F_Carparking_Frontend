@@ -3,6 +3,7 @@
 import Banner from './Home/Banner';
 import Garages from './Home/Garages';
 import HappyClients from './Home/HappyClients';
+import WhyChoose from './Home/WhyChoose';
 ;
 
 const Home = () => {
@@ -10,7 +11,9 @@ const Home = () => {
        <div>
         <Banner></Banner>
         <Garages></Garages>
+        <WhyChoose></WhyChoose>
         <HappyClients></HappyClients>
+
 
        </div>
     );

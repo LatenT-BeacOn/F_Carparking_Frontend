@@ -60,7 +60,7 @@ const HappyClients = () => {
     <div className="py-8">
       <h1 className="text-5xl font-bold text-center text-yellow-500 ">𝓞𝓾𝓻 𝓗𝓪𝓹𝓹𝔂 𝓒𝓵𝓲𝓮𝓷𝓽𝓼</h1>
 
-      <div className="carousel carousel-center rounded-box p-6 gap-2 my-6">
+      <div className="carousel carousel-center rounded-box p-2 gap-2 my-6">
         {clients.map((client, index) => (
           <div key={index} className="carousel-item h-full">
             <div

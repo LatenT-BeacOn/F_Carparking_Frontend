@@ -20,6 +20,7 @@ import ShowMore from './componensts/MainLayout/Home/ShowMore.jsx';
 import PrivateRout from './componensts/ParivateRout/PrivateRout.jsx';
 import Book from './componensts/MainLayout/Home/Book.jsx';
 import Services from './componensts/MainLayout/Services.jsx';
+import Profile from './componensts/MainLayout/Profile/Profile.jsx';
 
 
 const router = createBrowserRouter([
@@ -54,6 +55,10 @@ const router = createBrowserRouter([
       {
         path: "history",
         element: <PrivateRout><History /></PrivateRout>
+      },
+      {
+        path: "/profile",
+        element: <Profile></Profile>
       }
       
 

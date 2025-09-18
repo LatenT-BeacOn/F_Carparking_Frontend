@@ -1,41 +1,28 @@
-import React, { useContext, useState, useRef, useEffect } from 'react';
+import React, { useContext, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { AuthContext } from '../AuthContext/AuthProvider';
 import { FiUser } from 'react-icons/fi';
 
 const Navbar = () => {
     const { user, HandleLogout } = useContext(AuthContext);
-    const [dropdownOpen, setDropdownOpen] = useState(false);
-    const dropdownRef = useRef(null);
+    const [sliderOpen, setSliderOpen] = useState(false);
 
     const Links = (
         <>
             <NavLink to='/'>𝙷𝚘𝚖𝚎</NavLink>
             <NavLink to='/About'>𝙰𝚋𝚘𝚞𝚝</NavLink>
             <NavLink to='/services'>𝙾𝚞𝚛 𝚂𝚎𝚛𝚟𝚒𝚌𝚎𝚜</NavLink>
-             <NavLink to='/History'>𝙷𝚒𝚜𝚝𝚘𝚛𝚢</NavLink>
+            {/* <NavLink to='/History'>𝙷𝚒𝚜𝚝𝚘𝚛𝚢</NavLink> */}
         </>
     );
 
-    // Close dropdown when clicking outside
-    useEffect(() => {
-        const handleClickOutside = (event) => {
-            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-                setDropdownOpen(false);
-            }
-        };
-        document.addEventListener('mousedown', handleClickOutside);
-        return () => document.removeEventListener('mousedown', handleClickOutside);
-    }, []);
-
     const handleLogout = async () => {
         await HandleLogout();
-        setDropdownOpen(false); // close the dropdown
-        // No navigation, user stays on current page
+        setSliderOpen(false);
     };
 
     return (
-        <div className="navbar bg-neutral text-neutral-content shadow-md px-6">
+        <div className="navbar bg-neutral text-neutral-content shadow-2xl rounded px-6">
             <div className="navbar-start">
                 <div className="dropdown">
                     <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -54,37 +41,53 @@ const Navbar = () => {
                 <ul className="menu menu-horizontal px-1 gap-2">{Links}</ul>
             </div>
 
-            <div className="navbar-end relative" ref={dropdownRef}>
+            {/* Profile Icon */}
+            <div className="navbar-end relative">
                 {user ? (
-                    <button className="btn btn-ghost text-xl" onClick={() => setDropdownOpen(!dropdownOpen)}>
+                    <button className="btn btn-ghost text-xl" onClick={() => setSliderOpen(true)}>
                         <FiUser />
                     </button>
                 ) : (
                     <NavLink to="/Login" className="btn">Login</NavLink>
                 )}
-
-                {dropdownOpen && user && (
-                    <ul className="absolute right-0 font-black mt-2 w-40 bg-white border rounded shadow-lg text-sm z-10">
-                        <li>
-                            <NavLink
-                                to="/ProfileSettings"
-                                className="block px-4 py-2 hover:bg-gray-100"
-                                onClick={() => setDropdownOpen(false)}
-                            >
-                                Profile Settings
-                            </NavLink>
-                        </li>
-                        <li>
-                            <button
-                                className="w-full text-left px-4 py-2 hover:bg-gray-100"
-                                onClick={handleLogout}
-                            >
-                                Logout
-                            </button>
-                        </li>
-                    </ul>
-                )}
             </div>
+
+            {/* Right-side Slider */}
+            {sliderOpen && (
+                <>
+                    {/* Overlay */}
+                    <div
+                        className="fixed inset-0 bg-black bg-opacity-50 z-40"
+                        onClick={() => setSliderOpen(false)}
+                    ></div>
+
+                    {/* Slider Menu */}
+                    <div
+                        className={`fixed top-0 right-0 h-full w-64 bg-white shadow-lg transform 
+                            ${sliderOpen ? "translate-x-0" : "translate-x-full"}
+                            transition-transform duration-300 ease-in-out z-50`}
+                    >
+                        <div className="p-4 flex justify-between items-center border-b">
+                            <h2 className="text-lg font-bold text-black">Menu</h2>
+                            <button onClick={() => setSliderOpen(false)} className="text-gray-600 text-lg">✕</button>
+                        </div>
+                        <ul className="p-4 space-y-4 text-gray-700 font-bold">
+                            <li>
+                                <NavLink to="/profile" onClick={() => setSliderOpen(false)}>Profile</NavLink>
+                            </li>
+                            <li>
+                                <NavLink to="/Settings" onClick={() => setSliderOpen(false)}>Settings</NavLink>
+                            </li>
+                            <li>
+                                <NavLink to="/History" onClick={() => setSliderOpen(false)}>History</NavLink>
+                            </li>
+                            <li>
+                                <button onClick={handleLogout} className="w-full text-left">Logout</button>
+                            </li>
+                        </ul>
+                    </div>
+                </>
+            )}
         </div>
     );
 };

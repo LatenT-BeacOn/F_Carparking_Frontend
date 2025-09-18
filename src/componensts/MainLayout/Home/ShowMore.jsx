@@ -1,88 +1,86 @@
-import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import React from "react";
+import { Link, useLocation } from "react-router-dom";
 
 const ShowMore = () => {
   const location = useLocation();
-  const { garage } = location.state || {}; 
+  const { garage } = location.state || {};
 
-//   if (!garage) return <p>No garage data available.</p>;
+  if (!garage) return <p className="text-center mt-10 text-red-500">No garage data available.</p>;
 
   return (
-    <div className="p-6 mb-6 bg-white shadow-sm rounded-xl">
-      {/* 1️⃣ Image */}
-     <div className="carousel w-full">
-  <div id="slide1" className="carousel-item relative w-full">
-    <img
-      src={garage.photo}
-       className="w-full h-96 object-cover rounded-xl" />
-    <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
-      <a href="#slide4" className="btn btn-circle">❮</a>
-      <a href="#slide2" className="btn btn-circle">❯</a>
-    </div>
-  </div>
-  <div id="slide2" className="carousel-item relative w-full">
-    <img
-      src={garage.photo}
-      className="w-full h-96 object-cover rounded-xl" />
-    <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
-      <a href="#slide1" className="btn btn-circle">❮</a>
-      <a href="#slide3" className="btn btn-circle">❯</a>
-    </div>
-  </div>
-  <div id="slide3" className="carousel-item relative w-full">
-    <img
-      src={garage.photo}
-      className="w-full h-96 object-cover rounded-xl" />
-    <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
-      <a href="#slide2" className="btn btn-circle">❮</a>
-      <a href="#slide4" className="btn btn-circle">❯</a>
-    </div>
-  </div>
-  <div id="slide4" className="carousel-item relative w-full">
-    <img
-      src={garage.photo}
-      className="w-full h-96 object-cover rounded-xl"  />
-    <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
-      <a href="#slide3" className="btn btn-circle">❮</a>
-      <a href="#slide1" className="btn btn-circle">❯</a>
-    </div>
-  </div>
-</div>
+    <div className="p-6 md:p-10 bg-gray-50 min-h-screen">
+      <div className="max-w-5xl mx-auto bg-white shadow-xl rounded-2xl p-6 md:p-8">
+        {/* Carousel */}
+        <div className="carousel w-full rounded-xl overflow-hidden mb-6">
+          {[1, 2, 3, 4].map((slide, idx) => (
+            <div id={`slide${slide}`} className="carousel-item relative w-full" key={idx}>
+              <img
+                src={garage.photo}
+                alt={`Slide ${slide}`}
+                className="w-full h-96 object-cover"
+              />
+              <div className="absolute left-5 right-5 top-1/2 transform -translate-y-1/2 flex justify-between">
+                <a href={`#slide${slide === 1 ? 4 : slide - 1}`} className="btn btn-circle bg-white text-black hover:bg-gray-200">
+                  ❮
+                </a>
+                <a href={`#slide${slide === 4 ? 1 : slide + 1}`} className="btn btn-circle bg-white text-black hover:bg-gray-200">
+                  ❯
+                </a>
+              </div>
+            </div>
+          ))}
+        </div>
 
-      {/* 2️⃣ Name */}
-      <h1 className="text-3xl font-bold mb-2">{garage.name}</h1>
+        {/* Name & Location */}
+        <div className="text-center mb-6">
+          <h1 className="text-4xl font-extrabold text-gray-800">{garage.name}</h1>
+          <p className="text-gray-500 text-lg">{garage.location}</p>
+        </div>
 
-      {/* 3️⃣ Supplier / Location */}
-      <p className="text-gray-600 mb-4">{garage.location}</p>
+        {/* Details Paragraph */}
+        <p className="text-gray-700 text-center leading-relaxed mb-8">
+          Welcome to <span className="font-semibold">{garage.name}</span>. Our garage offers a safe and
+          convenient parking experience with a total of{" "}
+          <span className="font-semibold">{garage.totalSlot}</span> slots, currently{" "}
+          <span className="font-semibold">{garage.available}</span> available. Pricing is affordable at{" "}
+          <span className="font-semibold">{garage.price || "N/A"} per hour</span>.
+        </p>
 
-      {/* 4️⃣ Details paragraph */}
-      <p className="text-gray-700 mb-4">
-        Welcome to <span className="font-semibold">{garage.name}</span>. 
-        Our garage offers a safe and convenient parking experience with a total of 
-        <span className="font-semibold"> {garage.totalSlot} slots</span>, 
-        currently <span className="font-semibold">{garage.available} available</span>. 
-        The garage is located in a prime area, ensuring easy access. Pricing is affordable 
-        at <span className="font-semibold">{garage.price || 'N/A'} per hour</span>.
-      </p>
+        {/* Stats Cards */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+          <div className="bg-blue-50 p-4 rounded-xl text-center shadow-sm">
+            <h3 className="text-2xl font-bold text-blue-600">{garage.totalSlot}</h3>
+            <p className="text-gray-600">Total Slots</p>
+          </div>
+          <div className="bg-green-50 p-4 rounded-xl text-center shadow-sm">
+            <h3 className="text-2xl font-bold text-green-600">{garage.available}</h3>
+            <p className="text-gray-600">Available</p>
+          </div>
+          <div className="bg-purple-50 p-4 rounded-xl text-center shadow-sm">
+            <h3 className="text-2xl font-bold text-purple-600">{garage.garageArea || "N/A"}</h3>
+            <p className="text-gray-600">Area (sq.ft)</p>
+          </div>
+          <div className="bg-yellow-50 p-4 rounded-xl text-center shadow-sm">
+            <h3 className="text-2xl font-bold text-yellow-600">{garage.price || "N/A"}</h3>
+            <p className="text-gray-600">Price/Hour</p>
+          </div>
+        </div>
 
-      {/* 5️⃣ Details in flex */}
-      <div className="flex gap-6 mb-6 text-gray-700 font-semibold">
-        <span>Total Slots: {garage.totalSlot}</span>
-        <span>Available: {garage.available}</span>
-        <span>Area: {garage.garageArea || 'N/A'}</span>
-        <span>Price/Hour: {garage.price || 'N/A'}</span>
+        {/* Booking Button */}
+        <div className="text-center">
+          {garage.available > 0 ? (
+            <Link
+              to="/book"
+              state={{ garage }}
+              className="btn btn-primary px-6 text-white text-lg"
+            >
+              Book Now
+            </Link>
+          ) : (
+            <button className="btn btn-error px-6 text-lg text-white">No Slot Available</button>
+          )}
+        </div>
       </div>
-
-      {/* 6️⃣ Book Button */}
-      {
-       garage.available>0 ? 
-        (  <Link to='/book' state={{ garage }} className='btn btn-outline'>Book Now</Link>
-        ):
-        (
-           <button className='btn btn-soft btn-error'>No Slot Available</button>
-        )
-
-       }
     </div>
   );
 };

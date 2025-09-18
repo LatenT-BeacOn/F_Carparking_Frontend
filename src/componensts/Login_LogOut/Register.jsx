@@ -7,34 +7,62 @@ const Register = () => {
     const { HandleRegister } = useContext(AuthContext);
     const navigate = useNavigate();
 
-    const handleRegister = (e) => {
-        e.preventDefault();
+  const handleRegister = (e) => {
+    e.preventDefault();
 
-        const username = e.target.username.value;
-        const email = e.target.email.value;
-        const phone = e.target.phone.value;
-        const photo = e.target.photo.value;
-        const pass = e.target.pass.value;
-        const confirmPass = e.target.confirmPass.value;
+    const username = e.target.username.value;
+    const email = e.target.email.value;
+    const phone = e.target.phone.value;
+    const photo = e.target.photo.value;
+    const pass = e.target.pass.value;
+    const confirmPass = e.target.confirmPass.value;
 
-        // Password validation
-        if (pass !== confirmPass) {
-            setMessage("Passwords do not match!");
-            return;
-        }
+    // Password validation
+    if (pass !== confirmPass) {
+        setMessage("Passwords do not match!");
+        return;
+    }
 
-        HandleRegister(email, pass)
-            .then((userCredential) => {
-                console.log("User registered:", userCredential.user);
+    // Firebase Auth registration
+    HandleRegister(email, pass)
+        .then((userCredential) => {
+            console.log("User registered:", userCredential.user);
 
+            // Prepare user data for database
+            const userData = {
+                uid: userCredential.user.uid, // Firebase UID
+                username,
+                email,
+                phone,
+                photo,
+                createdAt: new Date().toISOString(),
+            };
+
+            // Send user data to your backend
+            fetch('http://localhost:3000/users', {  // Replace with your API endpoint
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(userData),
+            })
+            .then(res => res.json())
+            .then(data => {
+                console.log('User saved in DB:', data);
                 setMessage("Registered successfully!");
                 e.target.reset();
                 navigate('/');
             })
-            .catch((error) => {
-                setMessage("Error: " + error.message);
+            .catch(err => {
+                console.error('Failed to save user in DB:', err);
+                setMessage("Registered but failed to save user in database!");
             });
-    };
+        })
+        .catch((error) => {
+            setMessage("Error: " + error.message);
+        });
+};
+
 
     return (
         <div
