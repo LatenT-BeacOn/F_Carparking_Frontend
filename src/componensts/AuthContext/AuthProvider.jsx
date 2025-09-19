@@ -13,6 +13,7 @@ export const AuthContext = createContext(null);
 
 const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
+    const [loading, setLoading] = useState(true); // NEW
 
     // Email/password registration
     const HandleRegister = (email, pass) => {
@@ -39,12 +40,14 @@ const AuthProvider = ({ children }) => {
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
             setUser(currentUser);
+            setLoading(false); // auth state is now initialized
         });
         return () => unsubscribe();
     }, []);
 
     const authInfo = {
         user,
+        loading, // provide loading state
         HandleRegister,
         HandleLogin,
         HandleLogout,

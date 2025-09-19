@@ -7,6 +7,10 @@ const Navbar = () => {
     const { user, HandleLogout } = useContext(AuthContext);
     const [sliderOpen, setSliderOpen] = useState(false);
 
+
+
+
+
   const Links = (
   <>
     <NavLink
@@ -86,6 +90,7 @@ const Navbar = () => {
                 {user ? (
                     <button className="btn btn-ghost text-xl" onClick={() => setSliderOpen(true)}>
                         <FiUser />
+                        {/* {user.photo} */}
                     </button>
                 ) : (
                     <NavLink to="/Login" className="btn">Login</NavLink>

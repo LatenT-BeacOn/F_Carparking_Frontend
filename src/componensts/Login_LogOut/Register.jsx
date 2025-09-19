@@ -39,7 +39,7 @@ const Register = () => {
             };
 
             // Send user data to your backend
-            fetch('http://localhost:3000/users', {  // Replace with your API endpoint
+            fetch('http://localhost:3000/RegisteredUser', {  
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
