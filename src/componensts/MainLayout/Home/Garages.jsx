@@ -20,21 +20,23 @@ const Garages = () => {
       });
   }, []);
 
-  const filteredGarages = garages.filter(g =>
-    g.location?.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+ const filteredGarages = garages
+    .sort((a, b) => b._id.localeCompare(a._id)) 
+    .filter(g =>
+      g.location?.toLowerCase().includes(searchTerm.toLowerCase())
+    );
 
   return (
     <div className="p-6 bg-gray-100">
-      <h1 className="text-3xl font-bold text-center mb-5">Our Garages</h1>
+      <h1 className="text-4xl  font-bold text-center my-10">𝒪𝓊𝓇 𝒢𝒶𝓇𝒶𝑔𝑒s</h1>
 
       {/* Search */}
       <div className="flex justify-between items-center mb-4 mx-5">
-        <h2 className="text-xl">Total: {filteredGarages.length}</h2>
+        <h2 className="text-xl">𝒯𝑜𝓉𝒶𝓁: {filteredGarages.length}</h2>
         <input
           type="search"
           placeholder="Search by location"
-          className="border rounded px-2 py-1 outline-none"
+          className="input input-bordered  rounded px-2 py-1 outline-none"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />

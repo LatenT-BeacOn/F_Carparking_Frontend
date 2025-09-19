@@ -5,7 +5,7 @@ const Garage = ({ garage }) => {
   const { name, details, price, supplier, garageArea, location, photo, totalSlot, available } = garage;
 
   return (
-    <div className="bg-white p-3 shadow-lg rounded-xl overflow-hidden flex-shrink-0 w-[400px] h-[400px] flex flex-col">
+    <div className="bg-white p-3 shadow-lg rounded-xl overflow-hidden flex-shrink-0 w-[400px] h-[400px] flex flex-col border border-transparent hover:border-2 hover:border-yellow-500 transition-all duration-300">
       {/* Image */}
       <div className="w-full rounded-lg h-56 overflow-hidden">
         <img

@@ -1,8 +1,16 @@
-import React, { useState, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
-import Swal from 'sweetalert2';
-import { AuthContext } from '../AuthContext/AuthProvider';
-import { FaCar, FaCarSide, FaBolt, FaHandsWash, FaShieldAlt, FaTools, FaParking } from 'react-icons/fa';
+import React, { useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+import { AuthContext } from "../AuthContext/AuthProvider";
+import {
+  FaCar,
+  FaCarSide,
+  FaBolt,
+  FaHandsWash,
+  FaShieldAlt,
+  FaTools,
+  FaParking,
+} from "react-icons/fa";
 
 const services = [
   { icon: <FaParking />, title: "Hourly Parking", description: "Safe and affordable hourly parking." },
@@ -16,13 +24,12 @@ const services = [
 ];
 
 const Services = () => {
-  const { user } = useContext(AuthContext); // Get current logged-in user
+  const { user } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleAddComment = (e) => {
     e.preventDefault();
 
-    // If user not logged in, redirect to login
     if (!user) {
       Swal.fire({
         title: "Login Required",
@@ -30,7 +37,7 @@ const Services = () => {
         icon: "warning",
         confirmButtonText: "Login",
       }).then(() => {
-        navigate('/Login'); // Redirect to login page
+        navigate("/Login");
       });
       return;
     }
@@ -67,16 +74,48 @@ const Services = () => {
   };
 
   return (
-    <div className="bg-gray-50 py-12 px-6 md:px-12 mt-10">
+    <div className="bg-white py-16 px-6 md:px-12">
       {/* Services Section */}
-      <h2 className="text-4xl font-bold text-center text-gray-800 mb-10">Our Garage Services</h2>
+      <div className="text-center mb-16">
+        <h3 className="text-xl font-bold text-yellow-500 uppercase tracking-widest">
+          Welcome
+        </h3>
+        <h2 className="text-5xl font-extrabold text-gray-900 mb-6">
+          Our Services
+        </h2>
+        <p className="text-gray-600 max-w-3xl mx-auto">
+          Nulla egestas ante sit amet tincidunt bibendum. Duis id aliquet tellus,
+          ut iaculis orci. Suspendisse efficitur ornare neque, rhoncus viverra
+          dui semper in. Ut nec gravida enim. Maecenas viverra elit id nulla
+          euismod tempus. Proin hendrerit nibh mauris, eget mollis ex elementum
+          vel.
+        </p>
+      </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mb-16">
+      {/* Services Grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 text-center">
         {services.map((service, index) => (
-          <div key={index} className="bg-white p-6 rounded-2xl shadow-lg hover:shadow-2xl transition transform hover:-translate-y-2 duration-300 text-center">
-            <div className="text-4xl text-indigo-500 mb-4 flex justify-center">{service.icon}</div>
-            <h3 className="text-xl font-semibold mb-2 text-gray-800">{service.title}</h3>
-            <p className="text-gray-600 text-sm">{service.description}</p>
+          <div
+            key={index}
+            className={`px-8 py-10 ${
+              // add dotted line except last column in each row
+              (index + 1) % 4 !== 0 ? "border-r border-dotted border-gray-400" : ""
+            }`}
+          >
+            {/* Icon */}
+            <div className="text-6xl text-yellow-500 mb-6 flex justify-center">
+              {service.icon}
+            </div>
+
+            {/* Title */}
+            <h3 className="text-lg font-bold text-gray-800 uppercase mb-3">
+              {service.title}
+            </h3>
+
+            {/* Description */}
+            <p className="text-gray-600 text-sm leading-relaxed">
+              {service.description}
+            </p>
           </div>
         ))}
       </div>
@@ -86,7 +125,8 @@ const Services = () => {
         <div className="text-center space-y-4 mb-10">
           <h1 className="text-4xl font-bold text-gray-800">Share Your Feedback</h1>
           <p className="text-gray-600">
-            We value your thoughts! Please leave your name and feedback about our garage services.
+            We value your thoughts! Please leave your name and feedback about our
+            garage services.
           </p>
         </div>
 
@@ -94,13 +134,25 @@ const Services = () => {
           {/* Name */}
           <fieldset className="fieldset bg-base-200 border-base-300 rounded-box border p-4">
             <label className="label font-semibold">Name</label>
-            <input type="text" name="name" className="input w-full" placeholder="Your Name" required />
+            <input
+              type="text"
+              name="name"
+              className="input w-full"
+              placeholder="Your Name"
+              required
+            />
           </fieldset>
 
           {/* Email */}
           <fieldset className="fieldset bg-base-200 border-base-300 rounded-box border p-4">
             <label className="label font-semibold">Email</label>
-            <input type="email" name="email" className="input w-full" placeholder="Your Email" required />
+            <input
+              type="email"
+              name="email"
+              className="input w-full"
+              placeholder="Your Email"
+              required
+            />
           </fieldset>
 
           {/* Comment */}

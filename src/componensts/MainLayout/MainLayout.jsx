@@ -8,7 +8,7 @@ const MainLayout = () => {
     <div className="flex flex-col min-h-screen bg-gray-50">
       {/* Fixed Navbar */}
       <header className="fixed top-0 left-0 w-full z-50 bg-white ">
-        <div className="w-11/12 mx-auto">
+        <div className="w-11/12 mx-auto absolute inset-0 bg-black bg-opacity-60">
           <Navbar />
         </div>
       </header>

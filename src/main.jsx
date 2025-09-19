@@ -21,6 +21,7 @@ import PrivateRout from './componensts/ParivateRout/PrivateRout.jsx';
 import Book from './componensts/MainLayout/Home/Book.jsx';
 import Services from './componensts/MainLayout/Services.jsx';
 import Profile from './componensts/MainLayout/Profile/Profile.jsx';
+import Garages from './componensts/MainLayout/Home/Garages.jsx';
 
 
 const router = createBrowserRouter([
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
       {
         path: "services",
         element: <Services/>
+      },
+       {
+        path: "garages",
+        element: <Garages/>
       },
      {
         path: "showMore",

@@ -7,14 +7,54 @@ const Navbar = () => {
     const { user, HandleLogout } = useContext(AuthContext);
     const [sliderOpen, setSliderOpen] = useState(false);
 
-    const Links = (
-        <>
-            <NavLink to='/'>𝙷𝚘𝚖𝚎</NavLink>
-            <NavLink to='/About'>𝙰𝚋𝚘𝚞𝚝</NavLink>
-            <NavLink to='/services'>𝚂𝚎𝚛𝚟𝚒𝚌𝚎𝚜</NavLink>
-            {/* <NavLink to='/History'>𝙷𝚒𝚜𝚝𝚘𝚛𝚢</NavLink> */}
-        </>
-    );
+  const Links = (
+  <>
+    <NavLink
+      to="/"
+      className={({ isActive }) =>
+        isActive
+          ? "text-yellow-500 font-bold border-b-2 border-yellow-500 px-2"
+          : "text-white hover:text-yellow-500 px-2"
+      }
+    >
+      𝙷𝚘𝚖𝚎
+    </NavLink>
+
+    <NavLink
+      to="/About"
+      className={({ isActive }) =>
+        isActive
+          ? "text-yellow-500 font-bold border-b-2 border-yellow-500 px-2"
+          : "text-white hover:text-yellow-500 px-2"
+      }
+    >
+      𝙰𝚋𝚘𝚞𝚝
+    </NavLink>
+
+    <NavLink
+      to="/services"
+      className={({ isActive }) =>
+        isActive
+          ? "text-yellow-500 font-bold border-b-2 border-yellow-500 px-2"
+          : "text-white hover:text-yellow-500 px-2"
+      }
+    >
+      𝚂𝚎𝚛𝚟𝚒𝚌𝚎𝚜
+    </NavLink>
+
+    {/* <NavLink
+      to="/History"
+      className={({ isActive }) =>
+        isActive
+          ? "text-yellow-500 font-bold border-b-2 border-yellow-500 px-2"
+          : "text-white hover:text-yellow-500 px-2"
+      }
+    >
+      𝙷𝚒𝚜𝚝𝚘𝚛𝚢
+    </NavLink> */}
+  </>
+);
+
 
     const handleLogout = async () => {
         await HandleLogout();
@@ -22,7 +62,7 @@ const Navbar = () => {
     };
 
     return (
-        <div className="navbar bg-neutral text-neutral-content shadow-2xl rounded px-6">
+        <div className="navbar text-neutral-content  inset-0 bg-black bg-opacity-70 shadow-2xl rounded px-6">
             <div className="navbar-start">
                 <div className="dropdown">
                     <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -34,7 +74,7 @@ const Navbar = () => {
                         {Links}
                     </ul>
                 </div>
-                <a className="text-3xl">𝓟𝓪𝓻𝓴𝓔𝓪𝓼𝓮</a>
+                <a className="text-3xl text-yellow-500">𝓟𝓪𝓻𝓴𝓔𝓪𝓼𝓮</a>
             </div>
 
             <div className="navbar-center hidden lg:flex">
